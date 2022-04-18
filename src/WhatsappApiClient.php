@@ -70,36 +70,7 @@ class WhatsappApiClient
                 ],
             ]
         );
-        $parsedResponse = Json::decode($response->getBody()->getContents(), true);
 
-        return $parsedResponse;
+        return Json::decode($response->getBody()->getContents(), true);
     }
-
-    // /**
-    //  * https://developers.facebook.com/docs/whatsapp/api/contacts
-    //  */
-    // public function createContact(string $phoneNumber) : Contact
-    // {
-    //     $response = $this->http->post(
-    //         "$this->baseUri/$this->wapBusinessAccId/contacts",
-    //         [
-    //             'headers' => [
-    //                 'Content-Type' => 'application/json',
-    //             ],
-    //             'json'    => [
-    //                 'blocking' => 'wait',
-    //                 'contacts' => [$phoneNumber],
-    //             ],
-    //         ]
-    //     );
-    //
-    //     $parsedResponse = Json::decode($response->getBody()->getContents(), true);
-    //     $contactData    = $parsedResponse['contacts'][0];
-    //
-    //     return new Contact(
-    //         $contactData['wa_id'] ?? null,
-    //         $contactData['input'],
-    //         $contactData['status']
-    //     );
-    // }
 }

@@ -8,8 +8,15 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "guzzlehttp/guzzle": "~6.0",
-    "php-http/guzzle6-adapter": "^2.0"
+    "php-http/guzzle6-adapter": "^2.0",
+    "talentify/json-php": "^1.0"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:Talentify/json-php.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Talentify\\Whatsapp\\": "src/"

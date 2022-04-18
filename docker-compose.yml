@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  app:
+    build: docker/
+    volumes:
+      - "./:/usr/src/app"
+    working_dir: "/usr/src/app/"
+    user: ${CURRENT_UID:-1000}
