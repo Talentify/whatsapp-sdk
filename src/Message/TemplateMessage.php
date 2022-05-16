@@ -18,27 +18,34 @@ class TemplateMessage extends Message
     /** @var string */
     private $language;
     /** @var array */
-    private $components;
+    private $params;
 
     public function __construct(string $name, string $language)
     {
-        $this->name     = $name;
+        $this->name = $name;
         $this->language = $language;
     }
 
-    public function setComponents(array $components) : void
+    public function addTextParam(string $text): void
     {
-        $this->components = $components;
+        $this->params[] = $text;
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
+        $params = [];
+        foreach ($this->params as $param) {
+            $params['parameters'][] = ['type' => 'text', 'text' => $param];
+        }
+
+        $finalComponent = \count($params)> 0 ? array_merge(['type' => 'body'], $params) : [];
+
         return [
-            'name'       => $this->name,
-            'language'   => [
+            'name' => $this->name,
+            'language' => [
                 'code' => $this->language,
             ],
-            'components' => $this->components,
+            'components' => $finalComponent
         ];
     }
 }
