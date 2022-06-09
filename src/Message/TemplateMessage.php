@@ -19,11 +19,26 @@ class TemplateMessage extends Message
     private $language;
     /** @var array */
     private $params;
+    /** @var array */
+    private $cta;
 
     public function __construct(string $name, string $language)
     {
         $this->name = $name;
         $this->language = $language;
+    }
+
+    public function addCtaParam(string $cta): void
+    {
+        $this->cta = [
+            'type' => 'button',
+            'subtype' => 'url',
+            'index' => 1,
+            'parameters' => [
+                'type' => 'text',
+                'text' => $cta
+            ]
+        ];
     }
 
     public function addTextParam(string $text): void
@@ -38,7 +53,9 @@ class TemplateMessage extends Message
             $params['parameters'][] = ['type' => 'text', 'text' => $param];
         }
 
-        $finalComponent = \count($params)> 0 ? array_merge(['type' => 'body'], $params) : [];
+        $bodyComponent = \count($params) > 0 ? array_merge(['type' => 'body'], $params) : [];
+
+        $finalComponent = array_merge($bodyComponent, $this->cta);
 
         return [
             'name' => $this->name,
