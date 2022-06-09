@@ -32,7 +32,7 @@ class TemplateMessage extends Message
     {
         $this->cta = [
             'type' => 'button',
-            'subtype' => 'url',
+            'sub_type' => 'url',
             'index' => 1,
             'parameters' => [
                 'type' => 'text',
