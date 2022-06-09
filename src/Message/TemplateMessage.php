@@ -62,7 +62,7 @@ class TemplateMessage extends Message
             'language' => [
                 'code' => $this->language,
             ],
-            'components' => $finalComponent
+            'components' => [$finalComponent]
         ];
     }
 }
