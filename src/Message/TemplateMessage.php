@@ -48,24 +48,22 @@ class TemplateMessage extends Message
 
     public function toArray(): array
     {
-        $params = [];
-
         if ($this->params !== null ){
+            $params = [];
+
             foreach ($this->params as $param) {
                 $params['parameters'][] = ['type' => 'text', 'text' => $param];
             }
+
+            $bodyComponent = \count($params) > 0 ? array_merge(['type' => 'body'], $params) : [];
         }
-
-        $bodyComponent = \count($params) > 0 ? array_merge(['type' => 'body'], $params) : [];
-
-        $finalComponent = array_merge($bodyComponent, $this->cta);
 
         return [
             'name' => $this->name,
             'language' => [
                 'code' => $this->language,
             ],
-            'components' => [$finalComponent]
+            'components' => [$bodyComponent ?? null, $this->cta ?? null]
         ];
     }
 }
