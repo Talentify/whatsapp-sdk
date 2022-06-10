@@ -35,8 +35,10 @@ class TemplateMessage extends Message
             'sub_type' => 'url',
             'index' => 1,
             'parameters' => [
-                'type' => 'text',
-                'text' => $cta
+                [
+                    'type' => 'text',
+                    'text' => $cta
+                ]
             ]
         ];
     }
@@ -48,7 +50,7 @@ class TemplateMessage extends Message
 
     public function toArray(): array
     {
-        if ($this->params !== null ){
+        if ($this->params !== null) {
             $params = [];
 
             foreach ($this->params as $param) {
