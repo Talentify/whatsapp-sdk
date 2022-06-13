@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Talentify\Whatsapp\Message;
 
+use Talentify\Whatsapp\Message\InteractiveMessage\Header;
+
 /**
  * https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#template-object
  */
@@ -21,6 +23,8 @@ class TemplateMessage extends Message
     private $params;
     /** @var array */
     private $cta;
+    /** @var array */
+    protected $header;
 
     public function __construct(string $name, string $language)
     {
@@ -48,6 +52,19 @@ class TemplateMessage extends Message
         $this->params[] = $text;
     }
 
+    public function addHearder(string $header): void
+    {
+        $this->header = [
+            'type' => 'header',
+            'parameters' => [
+                [
+                    'type' => 'text',
+                    'text' => $header
+                ]
+            ]
+        ];
+    }
+
     public function toArray(): array
     {
         if ($this->params !== null) {
@@ -65,7 +82,7 @@ class TemplateMessage extends Message
             'language' => [
                 'code' => $this->language,
             ],
-            'components' => [$bodyComponent ?? null, $this->cta ?? null]
+            'components' => [$this->header ?? null, $bodyComponent ?? null, $this->cta ?? null]
         ];
     }
 }
