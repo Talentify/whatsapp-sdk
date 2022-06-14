@@ -52,7 +52,7 @@ class TemplateMessage extends Message
         $this->params[] = $text;
     }
 
-    public function addHearder(string $header): void
+    public function addHeader(string $header): void
     {
         $this->header = [
             'type' => 'header',
