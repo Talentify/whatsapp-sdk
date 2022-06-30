@@ -13,35 +13,66 @@ class ListMessage extends InteractiveMessage
     private $button;
     /** @var \Talentify\Whatsapp\Message\InteractiveMessage\Section[] */
     private $sections;
+    /** @var Header|null */
+    protected $header;
+    /** @var Footer|null */
+    protected $footer;
+
 
     public function __construct(string $text)
     {
         $this->text = $text;
     }
 
-    public function addButton(string $text) : self
+    public function setHeader(string $header) : self
+    {
+        $this->header = new Header($header);
+
+        return $this;
+    }
+
+    public function setFooter(string $footer) : self
+    {
+        $this->footer = new Footer($footer);
+
+        return $this;
+    }
+
+    public function setButton(string $text) : self
     {
         $this->button = $text;
 
         return $this;
     }
 
-    public function addSection(Section $section) : self
+    public function setSection(array $sections) : self
     {
-        $this->sections[] = $section;
+        $newSection = [];
+
+        foreach ($sections as $section){
+            $newSection = new Section($section['title']);
+            $newSection->addRow(
+              $section['row_id'],
+              $section['row_title'],
+              $section['row_description']
+            );
+        }
+        $this->sections[] = $newSection->toArray();
 
         return $this;
     }
 
-    public function getAction() : array
+    public function getInteractive() : array
     {
-        $message             = [];
-        $message['button']   = $this->button;
-        $message['sections'] = [];
-        foreach ($this->sections as $section) {
-            $message['sections'][] = $section->toArray();
-        }
-
-        return $message;
+        return [
+            'type' => $this->interactionType,
+            'header' => $this->header,
+            'body' => $this->text,
+            'footer' => $this->footer,
+            'action' => [
+                'button' => $this->button,
+                'sections' => $this->sections
+            ]
+        ];
     }
 }

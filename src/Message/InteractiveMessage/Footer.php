@@ -7,7 +7,7 @@ namespace Talentify\Whatsapp\Message\InteractiveMessage;
 class Footer
 {
     /** @var string */
-    private $text;
+    private string $text;
 
     public function __construct(string $text)
     {

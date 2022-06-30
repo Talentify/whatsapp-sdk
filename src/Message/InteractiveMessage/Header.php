@@ -6,9 +6,9 @@ namespace Talentify\Whatsapp\Message\InteractiveMessage;
 
 class Header
 {
-    private $type = 'text'; //There are other types, but we are using this one for now
+    private string $type = 'text'; //There are other types, but we are using this one for now
     /** @var string */
-    private $text;
+    private string $text;
 
     public function __construct(string $text)
     {

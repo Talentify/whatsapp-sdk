@@ -10,7 +10,7 @@ class ReplyButtonMessage extends InteractiveMessage
     /** @var string */
     protected $text;
     /** @var array */
-    private $buttons;
+    private array $buttons;
 
     public function __construct(string $text)
     {
@@ -18,23 +18,36 @@ class ReplyButtonMessage extends InteractiveMessage
         $this->buttons = [];
     }
 
-    public function addButton(string $title, string $id) : self
+    public function addButton(array $buttons) : self
     {
         if (count($this->buttons) === 3) {
             throw new \RuntimeException('You can not have more than 3 buttons');
         }
-        $this->buttons[] = [
-            'type'  => 'reply',
-            'reply' => ['title' => $title, 'id' => $id],
-        ];
+
+        $replyButton = [];
+
+        foreach ($buttons as $button){
+            $replyButton = [
+                'type'  => 'reply',
+                'reply' => [
+                    'title' => $button['title'],
+                    'id' => $button['id']
+                ],
+            ];
+        }
+        $this->buttons[] = $replyButton;
 
         return $this;
     }
 
-    public function getAction() : array
+    public function getInteractive() : array
     {
         return [
-            'buttons' => $this->buttons,
+            'type' => $this->interactionType,
+            'body' => $this->text,
+            'action' => [
+                'buttons' => $this->buttons
+            ]
         ];
     }
 }
