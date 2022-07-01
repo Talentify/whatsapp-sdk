@@ -34,8 +34,8 @@ class ReplyButtonMessage extends InteractiveMessage
                     'id' => $button['id']
                 ],
             ];
+            $this->buttons[] = $replyButton;
         }
-        $this->buttons[] = $replyButton;
 
         return $this;
     }
