@@ -14,9 +14,9 @@ class ListMessage extends InteractiveMessage
     /** @var \Talentify\Whatsapp\Message\InteractiveMessage\Section[] */
     private $sections;
     /** @var Header|null */
-    protected $header;
+    private $header;
     /** @var Footer|null */
-    protected $footer;
+    private $footer;
 
 
     public function __construct(string $text)
@@ -67,7 +67,7 @@ class ListMessage extends InteractiveMessage
         return [
             'type' => $this->interactionType,
             'header' => $this->header->toArray(),
-            'body' => $this->text,
+            'body' => ['text' => $this->text ],
             'footer' => $this->footer->toArray(),
             'action' => [
                 'button' => $this->button,
