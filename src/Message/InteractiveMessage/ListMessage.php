@@ -56,8 +56,8 @@ class ListMessage extends InteractiveMessage
               $section['row_title'],
               $section['row_description']
             );
+            $this->sections[] = $newSection->toArray();
         }
-        $this->sections[] = $newSection->toArray();
 
         return $this;
     }
