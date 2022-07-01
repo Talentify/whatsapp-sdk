@@ -66,9 +66,9 @@ class ListMessage extends InteractiveMessage
     {
         return [
             'type' => $this->interactionType,
-            'header' => $this->header,
+            'header' => $this->header->toArray(),
             'body' => $this->text,
-            'footer' => $this->footer,
+            'footer' => $this->footer->toArray(),
             'action' => [
                 'button' => $this->button,
                 'sections' => $this->sections
