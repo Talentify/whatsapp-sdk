@@ -6,9 +6,9 @@ namespace Talentify\Whatsapp\Message\InteractiveMessage;
 
 class ReplyButtonMessage extends InteractiveMessage
 {
-    protected $interactionType = 'button';
+    protected string $interactionType = 'button';
     /** @var string */
-    protected $text;
+    protected string $text;
     /** @var array */
     private array $buttons;
 
@@ -43,7 +43,6 @@ class ReplyButtonMessage extends InteractiveMessage
     public function getInteractive() : array
     {
         return [
-            'type' => $this->interactionType,
             'body' => $this->text,
             'action' => [
                 'buttons' => $this->buttons

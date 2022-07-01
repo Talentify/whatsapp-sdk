@@ -6,9 +6,9 @@ namespace Talentify\Whatsapp\Message\InteractiveMessage;
 
 class ListMessage extends InteractiveMessage
 {
-    protected $interactionType = 'list';
+    protected string $interactionType = 'list';
     /** @var string */
-    protected $text;
+    protected string $text;
     /** @var string */
     private string $button;
     /** @var \Talentify\Whatsapp\Message\InteractiveMessage\Section[] */
@@ -70,8 +70,6 @@ class ListMessage extends InteractiveMessage
     public function getInteractive() : array
     {
         $message = [];
-
-        $message['type'] = $this->interactionType;
 
         if ($this->header !== null){
             $message['header'] = $this->header->toArray();
