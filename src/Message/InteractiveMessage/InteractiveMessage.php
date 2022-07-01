@@ -15,8 +15,6 @@ abstract class InteractiveMessage extends Message
     protected $type = 'interactive';
     /** @var string */
     protected $interactionType;
-    /** @var string */
-    protected $text;
 
     abstract public function getInteractive() : array;
 

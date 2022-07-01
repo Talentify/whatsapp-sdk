@@ -8,15 +8,15 @@ class ListMessage extends InteractiveMessage
 {
     protected $interactionType = 'list';
     /** @var string */
-    protected $text;
+    protected string $text;
     /** @var string */
-    private $button;
+    private string $button;
     /** @var \Talentify\Whatsapp\Message\InteractiveMessage\Section[] */
-    private $sections;
+    private array $sections;
     /** @var Header|null */
-    private $header;
+    private ?Header $header;
     /** @var Footer|null */
-    private $footer;
+    private ?Footer $footer;
 
 
     public function __construct(string $text)
@@ -24,18 +24,23 @@ class ListMessage extends InteractiveMessage
         $this->text = $text;
     }
 
-    public function setHeader(string $header) : self
+    public function setHeader(?string $header): void
     {
+        if ($header === null){
+            $this->header = $header;
+            return;
+        }
         $this->header = new Header($header);
-
-        return $this;
     }
 
-    public function setFooter(string $footer) : self
+    public function setFooter(?string $footer): void
     {
+        if ($footer === null){
+            $this->footer = $footer;
+            return;
+        }
         $this->footer = new Footer($footer);
 
-        return $this;
     }
 
     public function setButton(string $text) : self
@@ -64,15 +69,24 @@ class ListMessage extends InteractiveMessage
 
     public function getInteractive() : array
     {
-        return [
-            'type' => $this->interactionType,
-            'header' => $this->header->toArray(),
-            'body' => ['text' => $this->text ],
-            'footer' => $this->footer->toArray(),
-            'action' => [
-                'button' => $this->button,
-                'sections' => $this->sections
-            ]
-        ];
+        $message = [];
+
+        $message['type'] = $this->interactionType;
+
+        $message['body'] = ['text' => $this->text];
+
+        if ($this->header !== null){
+            $message['header'] = $this->header->toArray();
+        }
+
+        if ($this->footer !== null){
+            $message['footer'] = $this->footer->toArray();
+        }
+
+        $message['action']['button'] = $this->button;
+
+        $message['action']['sections'] = $this->sections;
+
+        return $message;
     }
 }
