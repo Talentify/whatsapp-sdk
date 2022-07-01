@@ -26,6 +26,6 @@ abstract class InteractiveMessage extends Message
 
         $interactiveMessage['body'] = ['text' => $this->text];
 
-        return array_merge_recursive($interactiveMessage, $this->getInteractive());
+        return array_merge($interactiveMessage, $this->getInteractive());
     }
 }
