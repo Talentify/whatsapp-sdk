@@ -43,7 +43,6 @@ class ReplyButtonMessage extends InteractiveMessage
     public function getInteractive() : array
     {
         return [
-            'body' => $this->text,
             'action' => [
                 'buttons' => $this->buttons
             ]
