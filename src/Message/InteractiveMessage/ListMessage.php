@@ -14,9 +14,9 @@ class ListMessage extends InteractiveMessage
     /** @var \Talentify\Whatsapp\Message\InteractiveMessage\Section[] */
     private array $sections;
     /** @var Header|null */
-    private ?Header $header;
+    private ?Header $header = null;
     /** @var Footer|null */
-    private ?Footer $footer;
+    private ?Footer $footer = null;
 
 
     public function __construct(string $text)
@@ -24,23 +24,14 @@ class ListMessage extends InteractiveMessage
         $this->text = $text;
     }
 
-    public function setHeader(?string $header): void
+    public function setHeader(string $header): void
     {
-        if ($header === null){
-            $this->header = $header;
-            return;
-        }
         $this->header = new Header($header);
     }
 
-    public function setFooter(?string $footer): void
+    public function setFooter(string $footer): void
     {
-        if ($footer === null){
-            $this->footer = $footer;
-            return;
-        }
         $this->footer = new Footer($footer);
-
     }
 
     public function setButton(string $text) : self
